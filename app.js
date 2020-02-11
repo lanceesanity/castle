@@ -24,7 +24,7 @@ WIDTH = window.innerWidth;
 
 scene = new THREE.Scene();
 aspectRatio = WIDTH / HEIGHT;
-fieldOfView = 100;
+fieldOfView = 120;
 nearPlane = 1;
 farPlane = 10000;
 camera = new THREE.PerspectiveCamera(
@@ -234,14 +234,23 @@ let texturePath = new THREE.TextureLoader().load('assets/textures/path.jpg' );
 let matPath = new THREE.MeshPhongMaterial({shading:THREE.FlatShading, map:texturePath});
 let path = new THREE.Mesh(geomPath, matPath);
 path.position.x=200;
-path.position.y=-300;
-path.position.z=5000;
+path.position.y=-190;
+path.position.z=5500;
 path.rotation.x =1.55;
-
-
 path.castShadow = true;
 path.receiveShadow = true;
 this.mesh.add(path);
+//Create grass plane
+let geomGrass= new THREE.BoxGeometry(10000,10000,50,1,1,1);
+let textureGrass = new THREE.TextureLoader().load('assets/textures/water.jpg' );
+let matGrass = new THREE.MeshPhongMaterial({shading:THREE.FlatShading,transparent:true, map:textureGrass});
+let grass = new THREE.Mesh(geomGrass, matGrass);
+grass.position.x=0;
+grass.position.y=-400;
+grass.position.z=0;
+grass.rotation.x =1.54;
+grass.receiveShadow = true;
+this.mesh.add(grass);
 
 //sky
 let skyTexture= new THREE.TextureLoader().load( 'assets/textures/water.jpg' );
@@ -249,27 +258,28 @@ let skyMat= new THREE.MeshBasicMaterial({map:skyTexture})
 };
 
 
-Grass = function(){
-let geom = new THREE.PlaneGeometry(8000,4000,3200);
-geom.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI/2));
-let textureGrass = new THREE.TextureLoader().load( 'assets/textures/water.jpg' );
-let mat = new THREE.MeshPhongMaterial({
+Sea = function(){
+let geomSea = new THREE.PlaneGeometry(20000,20000,1600);
+geomSea.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI/2));
+let textureSea = new THREE.TextureLoader().load( 'assets/textures/sagbot1.jpg' );
+let matSea = new THREE.MeshPhongMaterial({
   color:Colors.blue,
   transparent:true,
   opacity:.6,
   shading:THREE.FlatShading,
-  map: textureGrass
+  map: textureSea
 });
-
-
-this.mesh = new THREE.Mesh(geom, mat);
+this.mesh = new THREE.Mesh(geomSea, matSea);
 this.mesh.receiveShadow = true;
 }
 
 
 
+
+
+
 // 3D Models
-let grass;
+let sea;
 let castle;
 
 function createCastle(){
@@ -279,9 +289,9 @@ castle.mesh.position.y = 100;
 scene.add(castle.mesh);
 }
 
-function createGrass(){
-grass = new Grass();
-scene.add(grass.mesh);
+function createSea(){
+sea = new Sea();
+scene.add(sea.mesh);
 }
 
 
@@ -297,7 +307,7 @@ function init(event){
 createScene();
 createLights();
 createCastle();
-createGrass();
+createSea();
 loop();
 }
 
