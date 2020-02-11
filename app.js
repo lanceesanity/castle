@@ -35,8 +35,8 @@ camera = new THREE.PerspectiveCamera(
   );
 
 scene.fog = new THREE.Fog(0xf7d9aa, 100,950);
-camera.position.x = 900;
-camera.position.z = 500;
+camera.position.x = 200;
+camera.position.z = 800;
 camera.position.y = 200;
 camera.rotation.y =0.5;
 
@@ -228,6 +228,21 @@ cone.position.y = 900;
 cone.position.z = -1800;
 this.mesh.add( cone );
 
+// Create the pathway
+let geomPath= new THREE.BoxGeometry(1000,10000,50,1,1,1);
+let texturePath = new THREE.TextureLoader().load('assets/textures/path.jpg' );
+let matPath = new THREE.MeshPhongMaterial({shading:THREE.FlatShading, map:texturePath});
+let path = new THREE.Mesh(geomPath, matPath);
+path.position.x=250;
+path.position.y=-400;
+path.position.z=1050;
+path.rotation.x =1.5;
+
+
+path.castShadow = true;
+path.receiveShadow = true;
+this.mesh.add(path);
+
 //sky
 let skyTexture= new THREE.TextureLoader().load( 'assets/textures/water.jpg' );
 let skyMat= new THREE.MeshBasicMaterial({map:skyTexture})
@@ -273,6 +288,7 @@ scene.add(grass.mesh);
 function loop(){
 renderer.render(scene, camera);
 requestAnimationFrame(loop);
+//to rotate the scene
 scene.rotation.y+=0.008
 }
 
