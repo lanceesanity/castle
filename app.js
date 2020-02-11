@@ -233,10 +233,10 @@ let geomPath= new THREE.BoxGeometry(1000,10000,50,1,1,1);
 let texturePath = new THREE.TextureLoader().load('assets/textures/path.jpg' );
 let matPath = new THREE.MeshPhongMaterial({shading:THREE.FlatShading, map:texturePath});
 let path = new THREE.Mesh(geomPath, matPath);
-path.position.x=250;
-path.position.y=-400;
-path.position.z=1050;
-path.rotation.x =1.5;
+path.position.x=200;
+path.position.y=-300;
+path.position.z=5000;
+path.rotation.x =1.55;
 
 
 path.castShadow = true;
